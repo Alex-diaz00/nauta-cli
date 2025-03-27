@@ -153,7 +153,7 @@ def up(args):
 
             try:
                 while True:
-                    if not client.is_logged_in or not NautaProtocol.is_connected():
+                    if not client.is_logged_in:
                         break
 
                     elapsed = int(time.time()) - login_time
