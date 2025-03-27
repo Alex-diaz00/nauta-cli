@@ -181,7 +181,7 @@ def up(args):
                 pass
             finally:
                 print("\n\nCerrando sesión ...")
-                print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
+                print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time- elapsed)))
 
 
             
