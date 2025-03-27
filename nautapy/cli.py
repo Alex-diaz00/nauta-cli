@@ -139,6 +139,10 @@ def up(args):
             print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
         else:
             print("else1")
+            if not client.is_logged_in:
+                print("is_logged_in")
+            if not NautaProtocol.is_connected():
+                print("NautaProtocol.is_connected")
             if not client.is_logged_in or not NautaProtocol.is_connected():
                 print("print1")
                 with client.login():
