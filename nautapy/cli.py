@@ -148,7 +148,9 @@ def up(args):
                     try:
                         if not client.is_logged_in or not NautaProtocol.is_connected():
                             print("\nConexión perdida. Intentando reconectar...")
-                            time.sleep(5)  # Espera antes de reintentar
+                            print("Reconectando...")
+                            time.sleep(3)
+                            up(args)  # Intenta reconectar si `--keep` está activado
                             continue  # Vuelve a intentar
 
                         elapsed = int(time.time()) - login_time
