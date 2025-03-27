@@ -183,10 +183,10 @@ def up(args):
         print("\n\nCerrando sesión ...")
         print("Sesión cerrada con éxito.")
 
-    if isOnline:
-        print("Reconectando...")
-        time.sleep(3)
-        up(args)  # Intenta reconectar si `--keep` está activado
+        if isOnline:
+            print("Reconectando...")
+            time.sleep(3)
+            up(args)  # Intenta reconectar si `--keep` está activado
 
 
 def down(args):
