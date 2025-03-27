@@ -176,36 +176,6 @@ def up(args):
                         except (ConnectionError):
                             print("\nError de conexión. Intentando reconectar...")
                             time.sleep(5)  # Espera antes de intentar nuevamente
-            
-            else:
-                print("else2")
-                if NautaProtocol.is_connected():
-                    print("print2")
-                    while True:
-                            try:
-                                if not NautaProtocol.is_connected():
-                                    print("print3")
-                                    break
-                                    # print("\nConexión perdida. Intentando reconectar...")
-                                    # print("Reconectando...")
-                                    # time.sleep(3)
-                                    # up(args)  # Intenta reconectar si `--keep` está activado
-                                    # continue  # Vuelve a intentar
-                                
-                                elapsed = int(time.time()) - login_time
-                                print("\rTiempo de conexión: {}".format(utils.seconds2strtime(elapsed)), end="")
-
-                                if args.session_time:
-                                    if args.session_time < elapsed:
-                                        break
-                                    
-                                    print(" La sesión se cerrará en {}".format(utils.seconds2strtime(args.session_time - elapsed)), end="")
-
-                                time.sleep(1)
-    
-                            except (ConnectionError):
-                                print("\nError de conexión. Intentando reconectar...")
-                                time.sleep(5)  # Espera antes de intentar nuevamente
 
     except KeyboardInterrupt:
         pass
@@ -213,10 +183,10 @@ def up(args):
         print("\n\nCerrando sesión ...")
         print("Sesión cerrada con éxito.")
 
-        if isOnline:
-            print("Reconectando...")
-            time.sleep(3)
-            up(args)  # Intenta reconectar si `--keep` está activado
+    if isOnline:
+        print("Reconectando...")
+        time.sleep(3)
+        up(args)  # Intenta reconectar si `--keep` está activado
 
 
 def down(args):
