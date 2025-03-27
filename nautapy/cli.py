@@ -173,7 +173,9 @@ def up(args):
                             time.sleep(5)  # Espera antes de intentar nuevamente
             
             else:
+                print("else2")
                 if NautaProtocol.is_connected():
+                    print("print2")
                     while True:
                             try:
                                 if not NautaProtocol.is_connected():
