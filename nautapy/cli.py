@@ -138,8 +138,11 @@ def up(args):
             print("[Sesión iniciada]")
             print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
         else:
+            print("else1")
             if not client.is_logged_in or not NautaProtocol.is_connected():
+                print("print1")
                 with client.login():
+                    print("login1")
                     login_time = int(time.time())
                     print("[Sesión iniciada]")
                     print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
