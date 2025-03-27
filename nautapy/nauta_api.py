@@ -111,8 +111,8 @@ class NautaProtocol(object):
     @classmethod
     def is_connected(cls, timeout=3):
         try:
-            r = requests.get(CHECK_PAGE, timeout=timeout)
-            return LOGIN_DOMAIN not in r.content
+            requests.get(CHECK_PAGE, timeout=timeout)
+            return True
         except (requests.ConnectionError, requests.Timeout) as exception:
             return False
 
