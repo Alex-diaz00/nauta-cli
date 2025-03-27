@@ -129,65 +129,53 @@ def up(args):
     user, password = _get_credentials(args)
     client = NautaClient(user=user, password=password)
     isOnline = args.keep
-    
-    print(
-        "Conectando usuario: {}".format(
-            client.user,
-        )
-    )
 
-    if args.batch:
-        client.login()
-        print("[Sesión iniciada]")
-        print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
-    else:
-        with client.login():
-            login_time = int(time.time())
+    print("Conectando usuario: {}".format(client.user))
+
+    try:
+        if args.batch:
+            client.login()
             print("[Sesión iniciada]")
             print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
-            print(
-                "Presione Ctrl+C para desconectarse, o ejecute '{} down' desde otro terminal".format(
-                    prog_name
-                )
-            )
+        else:
+            with client.login():
+                login_time = int(time.time())
+                print("[Sesión iniciada]")
+                print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
+                print("Presione Ctrl+C para desconectarse, o ejecute '{} down' desde otro terminal".format(prog_name))
 
-            try:
                 while True:
-                    if not client.is_logged_in or not NautaProtocol.is_connected():
-                        break
+                    try:
+                        if not client.is_logged_in or not NautaProtocol.is_connected():
+                            print("\nConexión perdida. Intentando reconectar...")
+                            time.sleep(5)  # Espera antes de reintentar
+                            continue  # Vuelve a intentar
 
-                    elapsed = int(time.time()) - login_time
+                        elapsed = int(time.time()) - login_time
+                        print("\rTiempo de conexión: {}".format(utils.seconds2strtime(elapsed)), end="")
 
-                    print(
-                        "\rTiempo de conexión: {}".format(
-                            utils.seconds2strtime(elapsed)
-                        ),
-                        end=""
-                    )
+                        if args.session_time:
+                            if args.session_time < elapsed:
+                                break
 
-                    if args.session_time:
-                        if args.session_time < elapsed:
-                            break
+                            print(" La sesión se cerrará en {}".format(utils.seconds2strtime(args.session_time - elapsed)), end="")
 
-                        print(
-                            " La sesión se cerrará en {}".format(
-                                utils.seconds2strtime(args.session_time - elapsed)
-                            ),
-                            end=""
-                        )
+                        time.sleep(1)
 
-                    time.sleep(1)
-            except KeyboardInterrupt:
-                pass
-            finally:
-                print("\n\nCerrando sesión ...")
-                #print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
+                    except (ConnectionError):
+                        print("\nError de conexión. Intentando reconectar...")
+                        time.sleep(5)  # Espera antes de intentar nuevamente
 
-
-            
+    except KeyboardInterrupt:
+        pass
+    finally:
+        print("\n\nCerrando sesión ...")
         print("Sesión cerrada con éxito.")
-        if(isOnline):
-            up(args)
+
+        if isOnline:
+            print("Reconectando...")
+            time.sleep(3)
+            up(args)  # Intenta reconectar si `--keep` está activado
 
 
 def down(args):
