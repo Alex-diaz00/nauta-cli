@@ -295,7 +295,7 @@ def main():
     up_parser = subparsers.add_parser("up")
     up_parser.set_defaults(func=up)
     up_parser.add_argument("-t", "--session-time", action="store", default=None, type=int, help="Tiempo de desconexión en segundos")
-    up_parser.add_argument("-k", "--keep", action="keep", default=False, help="Mantener siempre la sesión activa")
+    up_parser.add_argument("-k", "--keep", action="store", default=False, help="Mantener siempre la sesión activa")
     up_parser.add_argument("-b", "--batch", action="store_true", default=False, help="Ejecutar en modo no interactivo")
     up_parser.add_argument("user", nargs="?", help="Usuario Nauta")
     up_parser.add_argument("password", nargs="?", help="Password del usuario Nauta")
