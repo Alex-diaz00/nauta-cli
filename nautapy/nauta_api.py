@@ -36,7 +36,7 @@ from nautapy.exceptions import NautaLoginException, NautaLogoutException, NautaE
 
 MAX_DISCONNECT_ATTEMPTS = 10
 
-CHECK_PAGE = "http://www.cubadebate.cu/"
+CHECK_PAGE = "https://www.google.com"
 LOGIN_DOMAIN = b"secure.etecsa.net"
 LOGIN_URL = "https://secure.etecsa.net:8443"
 
