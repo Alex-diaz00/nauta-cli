@@ -155,11 +155,12 @@ def up(args):
                     while True:
                         try:
                             if not client.is_logged_in or not NautaProtocol.is_connected():
-                                print("\nConexión perdida. Intentando reconectar...")
-                                print("Reconectando...")
-                                time.sleep(3)
-                                up(args)  # Intenta reconectar si `--keep` está activado
-                                continue  # Vuelve a intentar
+                                break
+                                # print("\nConexión perdida. Intentando reconectar...")
+                                # print("Reconectando...")
+                                # time.sleep(3)
+                                # up(args)  # Intenta reconectar si `--keep` está activado
+                                # continue  # Vuelve a intentar
 
                             elapsed = int(time.time()) - login_time
                             print("\rTiempo de conexión: {}".format(utils.seconds2strtime(elapsed)), end="")
@@ -182,7 +183,7 @@ def up(args):
                     print("print2")
                     while True:
                             try:
-                                if NautaProtocol.is_connected():
+                                if not NautaProtocol.is_connected():
                                     print("print3")
                                     break
                                     # print("\nConexión perdida. Intentando reconectar...")
