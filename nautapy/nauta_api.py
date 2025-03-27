@@ -25,6 +25,7 @@ import re
 import os
 import time
 import http.cookiejar as cookielib
+import socket
 
 import bs4
 import requests
@@ -111,9 +112,9 @@ class NautaProtocol(object):
     @classmethod
     def is_connected(cls, timeout=3):
         try:
-            requests.get(CHECK_PAGE, timeout=timeout)
+            socket.create_connection(("8.8.8.8", 443), timeout=3)
             return True
-        except (requests.ConnectionError, requests.Timeout) as exception:
+        except OSError:
             return False
 
     @classmethod
