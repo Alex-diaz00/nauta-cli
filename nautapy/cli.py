@@ -179,6 +179,7 @@ def up(args):
                     while True:
                             try:
                                 if NautaProtocol.is_connected():
+                                    print("print3")
                                     break
                                     # print("\nConexión perdida. Intentando reconectar...")
                                     # print("Reconectando...")
