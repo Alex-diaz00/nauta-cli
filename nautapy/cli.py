@@ -138,13 +138,13 @@ def up(args):
             print("[Sesión iniciada]")
             print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
         else:
-            print("else1")
-            if not client.is_logged_in:
-                print("is_logged_in")
-            if not NautaProtocol.is_connected():
-                print("NautaProtocol.is_connected")
+            print("else1")#
+            if not client.is_logged_in:#
+                print("is_logged_in")#
+            if not NautaProtocol.is_connected():#
+                print("NautaProtocol.is_connected")#
             # if not client.is_logged_in or not NautaProtocol.is_connected():
-            print("print1")
+            print("print1")#
             with client.login():
                 print("login1")
                 login_time = int(time.time())
@@ -174,13 +174,15 @@ def up(args):
     except KeyboardInterrupt:
         pass
     finally:
-        print("\n\nCerrando sesión ...")
-        print("Sesión cerrada con éxito.")
-
         if isOnline:
             print("Reconectando...")
+            down(args)
             time.sleep(3)
-            up(args)  # Intenta reconectar si `--keep` está activado
+            up(args)
+        else: 
+            print("\n\nCerrando sesión ...")
+            print("Sesión cerrada con éxito.")
+            
 
 
 def down(args):
