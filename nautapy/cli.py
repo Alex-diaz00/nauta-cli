@@ -176,9 +176,13 @@ def up(args):
     finally:
         if isOnline:
             print("Reconectando...")
-            down(args)
-            time.sleep(3)
-            up(args)
+            try:
+                down(args)
+            except Exception:
+                pass
+            finally: 
+                time.sleep(3)
+                up(args)
         else: 
             print("\n\nCerrando sesión ...")
             print("Sesión cerrada con éxito.")
