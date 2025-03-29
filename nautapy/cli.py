@@ -138,15 +138,7 @@ def up(args):
             print("[Sesión iniciada]")
             print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
         else:
-            print("else1")#
-            if not client.is_logged_in:#
-                print("is_logged_in")#
-            if not NautaProtocol.is_connected():#
-                print("NautaProtocol.is_connected")#
-            # if not client.is_logged_in or not NautaProtocol.is_connected():
-            print("print1")#
             with client.login():
-                print("login1")
                 login_time = int(time.time())
                 print("[Sesión iniciada]")
                 print("Tiempo restante: {}".format(utils.val_or_error(lambda: client.remaining_time)))
@@ -155,27 +147,22 @@ def up(args):
                     try:
                         if not client.is_logged_in or not NautaProtocol.is_connected():
                             break
-                            # print("\nConexión perdida. Intentando reconectar...")
-                            # print("Reconectando...")
-                            # time.sleep(3)
-                            # up(args)  # Intenta reconectar si `--keep` está activado
-                            # continue  # Vuelve a intentar
                         elapsed = int(time.time()) - login_time
                         print("\rTiempo de conexión: {}".format(utils.seconds2strtime(elapsed)), end="")
                         if args.session_time:
                             if args.session_time < elapsed:
                                 break
-                            print(" La sesión se cerrará en {}".format(utils.seconds2strtime(args.session_time - elapsed)), end="")
+                            print("La sesión se cerrará en {}".format(utils.seconds2strtime(args.session_time - elapsed)), end="")
                         time.sleep(1)
                     except (ConnectionError):
                         print("\nError de conexión. Intentando reconectar...")
-                        time.sleep(5)  # Espera antes de intentar nuevamente
+                        time.sleep(5)
 
     except KeyboardInterrupt:
         pass
     finally:
         if isOnline:
-            print("Reconectando...")
+            print("\nReconectando...")
             try:
                 down(args)
             except Exception:
