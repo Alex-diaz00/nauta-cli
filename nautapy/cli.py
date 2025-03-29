@@ -145,8 +145,9 @@ def up(args):
                 print("Presione Ctrl+C para desconectarse, o ejecute '{} down' desde otro terminal".format(prog_name))
                 while True:
                     try:
-                        if not client.is_logged_in or not NautaProtocol.is_connected():
-                            break
+                        if is_online:
+                            if not client.is_logged_in or not NautaProtocol.is_connected():
+                                break
                         elapsed = int(time.time()) - login_time
                         print("\rTiempo de conexión: {}".format(utils.seconds2strtime(elapsed)), end="")
                         if args.session_time:
